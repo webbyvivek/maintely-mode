@@ -1,0 +1,2701 @@
+/**
+ * Maintely Mode - Admin Settings Page Styles
+ *
+ * Loaded only on the plugin's own settings screen (see
+ * Maintely_Mode_Admin::enqueue_assets()). Kept deliberately small and
+ * dependency-free.
+ *
+ * Design system: a small set of tokens drive typography, spacing,
+ * radius and field sizing across the whole settings UI so every tab
+ * looks and feels consistent. Nothing here changes markup, behaviour,
+ * or settings - purely visual refinement.
+ */
+
+html {
+	/* Reserve space for the vertical scrollbar at all times so that
+	 * page height changes (e.g. appending a new Social Link row)
+	 * never toggle the scrollbar on/off and shift already-visible
+	 * content horizontally. Falls back harmlessly where unsupported. */
+	scrollbar-gutter: stable;
+}
+
+.maintely-mode-wrap {
+	/* ---- Color ----
+	 * Primary accent (#2563EB) drives every interactive/active state:
+	 * primary buttons, active nav, toggle-on, focus rings, and links.
+	 * Everything else stays neutral; success/warning/danger are used
+	 * sparingly and only for their specific status meaning. */
+	--mwp-accent: #2563EB;
+	--mwp-accent-hover: #1d4fc4;
+	--mwp-accent-soft: rgba(37, 99, 235, 0.1);
+	--mwp-accent-soft-strong: rgba(37, 99, 235, 0.16);
+	--mwp-accent-border: rgba(37, 99, 235, 0.4);
+
+	--mwp-text-primary: #1d2327;
+	--mwp-text-secondary: #50575e;
+	--mwp-text-tertiary: #8c8f94;
+
+	--mwp-border: #dcdcde;
+	--mwp-border-light: #e9e9ea;
+	--mwp-surface: #ffffff;
+	--mwp-surface-muted: #f6f7f7;
+	--mwp-surface-sunken: #fafafa;
+	--mwp-neutral-badge-bg: #f0f0f1;
+	--mwp-neutral-badge-dot: #a7aaad;
+
+	--mwp-success: #00a32a;
+	--mwp-success-text: #15803d;
+	--mwp-warning-text: #b45309;
+	--mwp-danger: #b32d2e;
+	--mwp-danger-hover: #8f2323;
+	--mwp-danger-border: #e2c5c5;
+	--mwp-danger-border-hover: #d9a3a3;
+	--mwp-danger-soft: #fdf2f2;
+
+	/* ---- Type scale ---- */
+	--mwp-fs-page-title: 21px;
+	--mwp-fs-subtitle: 13px;
+	--mwp-fs-section-title: 15px;
+	--mwp-fs-card-title: 14px;
+	--mwp-fs-label: 14px;
+	--mwp-fs-body: 14px;
+	--mwp-fs-description: 13px;
+	--mwp-fs-small: 12px;
+	--mwp-fs-nav: 13px;
+
+	--mwp-lh-tight: 1.3;
+	--mwp-lh-normal: 1.5;
+	--mwp-lh-relaxed: 1.6;
+
+	/* ---- Spacing scale (4px base) ---- */
+	--mwp-space-1: 4px;
+	--mwp-space-2: 8px;
+	--mwp-space-3: 12px;
+	--mwp-space-4: 16px;
+	--mwp-space-5: 20px;
+	--mwp-space-6: 24px;
+	--mwp-space-7: 32px;
+	--mwp-space-8: 40px;
+
+	/* ---- Structural tokens ---- */
+	--mwp-radius-sm: 4px;
+	--mwp-radius-md: 6px;
+	--mwp-radius-lg: 8px;
+	--mwp-radius-pill: 999px;
+
+	--mwp-field-height: 36px;
+	--mwp-card-padding: 20px;
+
+	max-width: 1100px;
+	margin-top: var(--mwp-space-5);
+	font-size: var(--mwp-fs-body);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-wrap * {
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Page header
+   ========================================================================== */
+
+.maintely-mode-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--mwp-space-4);
+	flex-wrap: wrap;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	/* Slightly shorter than the card padding used elsewhere so the
+	 * header reads as a compact bar rather than a full card. */
+	padding: var(--mwp-space-4) var(--mwp-card-padding);
+}
+
+.maintely-mode-header-brand {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-3);
+}
+
+.maintely-mode-header-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	flex-shrink: 0;
+	border-radius: var(--mwp-radius-md);
+	background: var(--mwp-accent);
+}
+
+.maintely-mode-header-icon .dashicons {
+	font-size: 19px;
+	width: 19px;
+	height: 19px;
+	color: #ffffff;
+}
+
+.maintely-mode-header-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1px;
+}
+
+.maintely-mode-title {
+	margin: 0;
+	font-size: var(--mwp-fs-page-title);
+	line-height: var(--mwp-lh-tight);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-subtitle {
+	margin: 0;
+	font-size: var(--mwp-fs-subtitle);
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-header-status {
+	display: flex;
+	align-items: center;
+	align-self: center;
+}
+
+.maintely-mode-status-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-width: 96px;
+	padding: 5px 12px;
+	border-radius: var(--mwp-radius-pill);
+	font-size: var(--mwp-fs-small);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	white-space: nowrap;
+}
+
+.maintely-mode-status-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+}
+
+.maintely-mode-status-badge.is-active {
+	background: var(--mwp-accent-soft);
+	color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-status-badge.is-active .maintely-mode-status-dot {
+	background: var(--mwp-accent);
+}
+
+.maintely-mode-status-badge.is-disabled {
+	background: var(--mwp-neutral-badge-bg);
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-status-badge.is-disabled .maintely-mode-status-dot {
+	background: var(--mwp-neutral-badge-dot);
+}
+
+/* ==========================================================================
+   Save notification — top-right toast
+   The "Settings saved." notice (from settings_errors()) and any other
+   WordPress admin notice on this screen (e.g. the "secret access URL
+   regenerated" notice from Maintely_Mode_Bypass) are moved by admin.js
+   (initNoticeToasts) out of wherever WordPress/PHP originally printed
+   them and into #maintely-mode-toast-container, a container appended
+   directly to <body>. That container - not any element inside
+   .maintely-mode-wrap - is styled here as a fixed top-right toast.
+
+   Because the container lives at the body level, completely outside
+   .maintely-mode-header/.maintely-mode-content, a notice moved into it
+   cannot occupy space in, push, or otherwise affect the page header
+   or layout, and cannot visually render "inside" the header - it is
+   simply not a descendant of it. The only thing this offset needs to
+   clear is the global WordPress admin bar (32px desktop / 46px
+   mobile), not this plugin's own header.
+   ========================================================================== */
+
+#maintely-mode-toast-container {
+	position: fixed;
+	top: 42px;
+	right: var(--mwp-space-5, 20px);
+	z-index: 100000;
+	width: 100%;
+	max-width: 360px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--mwp-space-2, 8px);
+	pointer-events: none;
+}
+
+#maintely-mode-toast-container:empty {
+	display: none;
+}
+
+#maintely-mode-toast-container .notice {
+	pointer-events: auto;
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	padding: 14px 40px 14px 16px;
+	border: 1px solid rgba(15, 23, 42, 0.06);
+	border-left: none;
+	border-radius: 12px;
+	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+	background: var(--mwp-surface, #ffffff);
+	animation: maintely-mode-toast-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#maintely-mode-toast-container .notice.is-leaving {
+	animation: maintely-mode-toast-out 0.18s ease forwards;
+}
+
+/* Small circular check badge in the accent color - the only color
+   accent on an otherwise neutral, white card. */
+#maintely-mode-toast-container .notice::before {
+	content: "";
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	margin-top: 1px;
+	border-radius: 50%;
+	background-color: #2563EB;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5L6.5 11.5L12.5 4.5' stroke='white' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 11px 11px;
+}
+
+#maintely-mode-toast-container .notice p {
+	margin: 0;
+	padding-top: 1px;
+	font-size: 14px;
+	line-height: 1.4;
+	font-weight: 600;
+	color: var(--mwp-text-primary, #1d2327);
+}
+
+#maintely-mode-toast-container .notice-dismiss {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 22px;
+	height: 22px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	margin: 0;
+	border: none;
+	border-radius: 6px;
+	background: transparent;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#maintely-mode-toast-container .notice-dismiss:before {
+	color: #94A3B8;
+	transition: color 0.15s ease;
+}
+
+#maintely-mode-toast-container .notice-dismiss:hover,
+#maintely-mode-toast-container .notice-dismiss:focus {
+	background: rgba(37, 99, 235, 0.08);
+	outline: none;
+	box-shadow: none;
+}
+
+#maintely-mode-toast-container .notice-dismiss:hover:before,
+#maintely-mode-toast-container .notice-dismiss:focus:before {
+	color: #2563EB;
+}
+
+@keyframes maintely-mode-toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(-8px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes maintely-mode-toast-out {
+	from {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+}
+
+@media screen and (max-width: 782px) {
+	#maintely-mode-toast-container {
+		top: 56px;
+		right: var(--mwp-space-3);
+		left: var(--mwp-space-3);
+		max-width: none;
+	}
+}
+
+/* ==========================================================================
+   Body layout: navigation + content
+   ========================================================================== */
+
+.maintely-mode-body {
+	display: flex;
+	align-items: flex-start;
+	gap: 0;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	overflow: hidden;
+	margin-bottom: var(--mwp-space-8);
+}
+
+.maintely-mode-sidebar {
+	flex: 0 0 208px;
+	width: 208px;
+	box-sizing: border-box;
+	background: var(--mwp-surface-muted);
+	border-right: 1px solid var(--mwp-border);
+	padding: var(--mwp-space-4) var(--mwp-space-3);
+	align-self: stretch;
+}
+
+.maintely-mode-sidebar-nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.maintely-mode-sidebar-nav li {
+	margin: 0 0 2px;
+}
+
+.maintely-mode-sidebar-link {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-2);
+	padding: 9px var(--mwp-space-3);
+	border-radius: var(--mwp-radius-md);
+	color: var(--mwp-text-secondary);
+	font-size: var(--mwp-fs-nav);
+	font-weight: 500;
+	line-height: var(--mwp-lh-normal);
+	text-decoration: none;
+	box-shadow: none;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.maintely-mode-sidebar-link .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	color: var(--mwp-text-tertiary);
+	flex-shrink: 0;
+	transition: color 0.15s ease;
+}
+
+.maintely-mode-sidebar-link:hover {
+	background: var(--mwp-accent-soft);
+	color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-sidebar-link:hover .dashicons {
+	color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-sidebar-link:focus-visible {
+	outline: 2px solid var(--mwp-accent);
+	outline-offset: 1px;
+}
+
+.maintely-mode-sidebar-link.is-active {
+	background: var(--mwp-accent);
+	color: #ffffff;
+}
+
+.maintely-mode-sidebar-link.is-active .dashicons {
+	color: #ffffff;
+}
+
+.maintely-mode-content {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: var(--mwp-space-6) var(--mwp-space-7);
+}
+
+.maintely-mode-content .maintely-mode-tab-content {
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 0;
+	margin-bottom: 0;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-body {
+		flex-direction: column;
+	}
+
+	.maintely-mode-sidebar {
+		width: 100%;
+		flex: 1 1 auto;
+		border-right: none;
+		border-bottom: 1px solid var(--mwp-border);
+		padding: var(--mwp-space-2);
+	}
+
+	.maintely-mode-sidebar-nav {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		gap: 4px;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.maintely-mode-sidebar-nav li {
+		margin: 0;
+		flex: 0 0 auto;
+	}
+
+	.maintely-mode-sidebar-link {
+		white-space: nowrap;
+	}
+
+	.maintely-mode-content {
+		padding: var(--mwp-space-5) var(--mwp-space-4);
+	}
+}
+
+/* ==========================================================================
+   Core Settings-API form table (labels, fields, descriptions)
+   ========================================================================== */
+
+.maintely-mode-tab-content .form-table {
+	margin-top: 0;
+}
+
+.maintely-mode-tab-content .form-table th {
+	width: 220px;
+	padding: var(--mwp-space-5) var(--mwp-space-4) var(--mwp-space-5) 0;
+	font-size: var(--mwp-fs-label);
+	font-weight: 600;
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+	vertical-align: top;
+}
+
+.maintely-mode-tab-content .form-table td {
+	padding: var(--mwp-space-5) 0;
+	font-size: var(--mwp-fs-body);
+	line-height: var(--mwp-lh-normal);
+	vertical-align: top;
+}
+
+.maintely-mode-tab-content .form-table tr {
+	border-bottom: 1px solid var(--mwp-border-light);
+}
+
+.maintely-mode-tab-content .form-table tr:last-child {
+	border-bottom: none;
+}
+
+/* Help/description text: visually secondary - smaller, lighter, and
+ * separated from its field by a small consistent gap. */
+.maintely-mode-tab-content .description,
+.maintely-mode-tab-content p.description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	font-weight: 400;
+}
+
+/* Standard text inputs / textareas / selects inside the form table get a
+ * consistent height, padding, border radius, and focus treatment. */
+.maintely-mode-tab-content .form-table input[type="text"],
+.maintely-mode-tab-content .form-table input[type="url"],
+.maintely-mode-tab-content .form-table input[type="email"],
+.maintely-mode-tab-content .form-table input[type="tel"],
+.maintely-mode-tab-content .form-table input[type="number"],
+.maintely-mode-tab-content .form-table select {
+	min-height: var(--mwp-field-height);
+	padding: 6px 12px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-tab-content .form-table textarea {
+	padding: 10px 12px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: var(--mwp-lh-relaxed);
+	box-shadow: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-tab-content .form-table input[type="text"]:focus,
+.maintely-mode-tab-content .form-table input[type="url"]:focus,
+.maintely-mode-tab-content .form-table input[type="email"]:focus,
+.maintely-mode-tab-content .form-table input[type="tel"]:focus,
+.maintely-mode-tab-content .form-table input[type="number"]:focus,
+.maintely-mode-tab-content .form-table select:focus,
+.maintely-mode-tab-content .form-table textarea:focus {
+	border-color: var(--mwp-accent);
+	box-shadow: 0 0 0 1px var(--mwp-accent);
+	outline: none;
+}
+
+/* Buttons: consistent height/radius, spaced from whatever precedes them. */
+.maintely-mode-tab-content .button,
+.maintely-mode-tab-content .button-primary {
+	height: 34px;
+	line-height: 32px;
+	padding: 0 var(--mwp-space-4);
+	border-radius: var(--mwp-radius-md);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.maintely-mode-tab-content .button-primary {
+	background: var(--mwp-accent);
+	border-color: var(--mwp-accent);
+	color: #ffffff;
+	box-shadow: none;
+	text-shadow: none;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.maintely-mode-tab-content .button-primary:hover,
+.maintely-mode-tab-content .button-primary:focus {
+	background: var(--mwp-accent-hover);
+	border-color: var(--mwp-accent-hover);
+	color: #ffffff;
+}
+
+.maintely-mode-tab-content .button-primary:focus {
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--mwp-accent-soft-strong);
+	outline: none;
+}
+
+/* ==========================================================================
+   Sticky Save Changes bar
+   ========================================================================== */
+
+.maintely-mode-save-bar {
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 30;
+	margin: var(--mwp-space-6) calc(var(--mwp-space-7) * -1) calc(var(--mwp-space-6) * -1);
+	padding: var(--mwp-space-4) var(--mwp-space-7);
+	background: var(--mwp-surface);
+	border-top: 1px solid var(--mwp-border);
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.maintely-mode-save-bar-inner {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--mwp-space-3);
+}
+
+.maintely-mode-save-status {
+	font-size: var(--mwp-fs-description);
+	font-weight: 600;
+	color: var(--mwp-warning-text);
+	opacity: 0;
+	transition: opacity 0.15s ease;
+}
+
+.maintely-mode-save-bar.has-changes .maintely-mode-save-status {
+	opacity: 1;
+}
+
+.maintely-mode-save-bar.is-saved .maintely-mode-save-status {
+	opacity: 1;
+	color: var(--mwp-success-text);
+}
+
+.maintely-mode-discard-button {
+	display: none;
+}
+
+.maintely-mode-save-bar.has-changes .maintely-mode-discard-button {
+	display: inline-flex;
+	align-items: center;
+}
+
+.maintely-mode-save-bar .button-primary {
+	background: var(--mwp-accent);
+	border-color: var(--mwp-accent);
+	box-shadow: none;
+	text-shadow: none;
+	padding: 0 var(--mwp-space-5);
+	height: 36px;
+	line-height: 34px;
+	font-size: 14px;
+	font-weight: 600;
+	border-radius: var(--mwp-radius-md);
+	transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.maintely-mode-save-bar .button-primary:hover {
+	background: var(--mwp-accent-hover);
+	border-color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-save-bar .button-primary:focus {
+	background: var(--mwp-accent-hover);
+	border-color: var(--mwp-accent-hover);
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--mwp-accent-soft-strong);
+	outline: none;
+}
+
+.maintely-mode-save-bar .button-primary:disabled,
+.maintely-mode-save-bar .button-primary:disabled:hover {
+	background: var(--mwp-accent);
+	border-color: var(--mwp-accent);
+	opacity: 0.4;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-save-bar {
+		margin: var(--mwp-space-5) calc(var(--mwp-space-4) * -1) calc(var(--mwp-space-5) * -1);
+		padding: var(--mwp-space-3) var(--mwp-space-4);
+	}
+
+	.maintely-mode-save-bar-inner {
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: stretch;
+		gap: var(--mwp-space-2);
+	}
+
+	.maintely-mode-save-status {
+		text-align: center;
+	}
+
+	.maintely-mode-save-bar .button-primary {
+		width: 100%;
+		text-align: center;
+		padding: var(--mwp-space-2) var(--mwp-space-5);
+	}
+
+	.maintely-mode-discard-button {
+		width: 100%;
+		justify-content: center;
+		text-align: center;
+	}
+}
+
+/* ==========================================================================
+   Logo upload card
+   ========================================================================== */
+
+.maintely-mode-media-preview-wrap {
+	margin-bottom: var(--mwp-space-2);
+}
+
+.maintely-mode-media-preview {
+	display: none;
+	max-width: 150px;
+	height: auto;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-sm);
+	padding: 4px;
+	background: #fff;
+}
+
+.maintely-mode-media-preview.is-visible {
+	display: block;
+}
+
+.maintely-mode-media-remove {
+	display: none;
+}
+
+.maintely-mode-media-remove.is-visible {
+	display: inline-block;
+}
+
+.maintely-mode-logo-field {
+	max-width: 340px;
+}
+
+.maintely-mode-logo-card {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: var(--mwp-space-3);
+	padding: var(--mwp-space-4);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface-sunken);
+}
+
+.maintely-mode-logo-field .maintely-mode-media-preview-wrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 160px;
+	margin-bottom: 0;
+	border: 1px solid var(--mwp-border-light);
+	border-radius: var(--mwp-radius-md);
+	overflow: hidden;
+	background: #fff;
+}
+
+.maintely-mode-logo-field .maintely-mode-media-preview {
+	display: none;
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	padding: 0;
+	border-radius: 0;
+	object-fit: contain;
+	background: transparent;
+}
+
+.maintely-mode-logo-field .maintely-mode-media-preview.is-visible {
+	display: block;
+}
+
+.maintely-mode-logo-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--mwp-space-2);
+	width: 100%;
+	height: 100%;
+	color: var(--mwp-text-tertiary);
+}
+
+.maintely-mode-logo-card.has-image .maintely-mode-logo-empty {
+	display: none;
+}
+
+.maintely-mode-logo-empty .dashicons {
+	font-size: 26px;
+	width: 26px;
+	height: 26px;
+}
+
+.maintely-mode-logo-empty-text {
+	display: block;
+	font-size: var(--mwp-fs-small);
+}
+
+.maintely-mode-logo-actions {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+	gap: var(--mwp-space-2);
+}
+
+.maintely-mode-logo-actions .button {
+	flex: 1 1 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	height: 34px;
+	line-height: 32px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.maintely-mode-logo-field .button-primary.maintely-mode-media-upload {
+	background: var(--mwp-accent);
+	border-color: var(--mwp-accent);
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.maintely-mode-logo-field .button-primary.maintely-mode-media-upload:hover,
+.maintely-mode-logo-field .button-primary.maintely-mode-media-upload:focus {
+	background: var(--mwp-accent-hover);
+	border-color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-logo-field .button-primary.maintely-mode-media-upload:focus {
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--mwp-accent-soft-strong);
+	outline: none;
+}
+
+.maintely-mode-logo-field .maintely-mode-media-remove {
+	display: none;
+	color: var(--mwp-danger);
+	border-color: var(--mwp-danger-border);
+	background: #fff;
+}
+
+.maintely-mode-logo-field .maintely-mode-media-remove.is-visible {
+	display: inline-flex;
+}
+
+.maintely-mode-logo-field .maintely-mode-media-remove:hover {
+	color: var(--mwp-danger-hover);
+	border-color: var(--mwp-danger-border-hover);
+	background: var(--mwp-danger-soft);
+}
+
+.maintely-mode-logo-field .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+@media screen and ( max-width: 480px ) {
+	.maintely-mode-logo-field {
+		max-width: 100%;
+	}
+
+	.maintely-mode-logo-actions {
+		flex-direction: column;
+	}
+
+	.maintely-mode-logo-actions .button {
+		width: 100%;
+	}
+}
+
+/* ==========================================================================
+   Repeater fields (e.g. social links)
+   ========================================================================== */
+
+.maintely-mode-repeater-row {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-2);
+	margin-bottom: var(--mwp-space-2);
+}
+
+.maintely-mode-repeater-row input.regular-text {
+	flex: 1 1 auto;
+	max-width: 320px;
+	min-height: var(--mwp-field-height);
+}
+
+/* ==========================================================================
+   Secret URL field + copy badge
+   ========================================================================== */
+
+.maintely-mode-secret-url {
+	max-width: 420px;
+	background: var(--mwp-surface-muted);
+	cursor: pointer;
+}
+
+.maintely-mode-copied-badge {
+	display: inline-block;
+	margin-left: var(--mwp-space-2);
+	padding: 2px 10px;
+	border-radius: var(--mwp-radius-pill);
+	background: var(--mwp-success);
+	color: #ffffff;
+	font-size: var(--mwp-fs-small);
+	font-weight: 600;
+	opacity: 0;
+	transform: translateY(-2px);
+	transition: opacity 0.15s ease, transform 0.15s ease;
+	pointer-events: none;
+}
+
+.maintely-mode-copied-badge.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* ==========================================================================
+   Theme choice (radio card group) - redesigned for the Design tab.
+   Base class names (.maintely-mode-theme-choice / .maintely-mode-theme-option
+   / --light / --dark) are unchanged so the existing PHP markup keeps
+   working; only the visual treatment and the new preview/meta/check
+   descendant elements are added here.
+   ========================================================================== */
+
+.maintely-mode-theme-choice {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--mwp-space-4);
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.maintely-mode-theme-option {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--mwp-space-3);
+	width: 180px;
+	padding: var(--mwp-space-3);
+	border: 2px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	font-size: var(--mwp-fs-body);
+	cursor: pointer;
+	background: var(--mwp-surface);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-theme-option:hover {
+	border-color: #94b3f5;
+}
+
+.maintely-mode-theme-option:has(input:checked) {
+	border-color: #2563EB;
+	box-shadow: 0 0 0 1px #2563EB;
+}
+
+.maintely-mode-theme-option input {
+	position: absolute;
+	opacity: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+/* Miniature page preview swatch. */
+.maintely-mode-theme-option-preview {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: var(--mwp-space-3);
+	border-radius: var(--mwp-radius-md);
+	overflow: hidden;
+}
+
+.maintely-mode-theme-option-preview-bar {
+	display: block;
+	width: 40%;
+	height: 8px;
+	border-radius: var(--mwp-radius-pill);
+}
+
+.maintely-mode-theme-option-preview-line {
+	display: block;
+	width: 85%;
+	height: 6px;
+	border-radius: var(--mwp-radius-pill);
+}
+
+.maintely-mode-theme-option-preview-line--short {
+	width: 55%;
+}
+
+.maintely-mode-theme-option--light .maintely-mode-theme-option-preview {
+	background: #f6f7f7;
+	border: 1px solid var(--mwp-border-light);
+}
+
+.maintely-mode-theme-option--light .maintely-mode-theme-option-preview-bar {
+	background: #2563EB;
+}
+
+.maintely-mode-theme-option--light .maintely-mode-theme-option-preview-line {
+	background: #d7dbe0;
+}
+
+.maintely-mode-theme-option--dark .maintely-mode-theme-option-preview {
+	background: #1e1e1e;
+	border: 1px solid #333333;
+}
+
+.maintely-mode-theme-option--dark .maintely-mode-theme-option-preview-bar {
+	background: #5b8def;
+}
+
+.maintely-mode-theme-option--dark .maintely-mode-theme-option-preview-line {
+	background: #3f3f3f;
+}
+
+.maintely-mode-theme-option-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--mwp-space-2);
+}
+
+.maintely-mode-theme-option-label {
+	font-size: var(--mwp-fs-body);
+	font-weight: 600;
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-theme-option-check {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	color: var(--mwp-border);
+}
+
+.maintely-mode-theme-option-check .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+
+.maintely-mode-theme-option:has(input:checked) .maintely-mode-theme-option-check {
+	color: #2563EB;
+}
+
+/* ==========================================================================
+   Section cards ("Content" / "Branding" grouped headers on the General tab)
+   ========================================================================== */
+
+.maintely-mode-section-card-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-3);
+}
+
+.maintely-mode-section-card-header:not(:first-child) {
+	margin-top: var(--mwp-space-7);
+}
+
+.maintely-mode-section-card-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid var(--mwp-accent);
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-section-card-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-section-card-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-7);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	/* Tables ignore border-radius clipping unless collapsing is disabled
+	 * and overflow is explicitly hidden - without this the bottom corners
+	 * render square instead of rounded. */
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+.maintely-mode-section-card-header + table.form-table th {
+	padding-left: var(--mwp-card-padding);
+}
+
+.maintely-mode-section-card-header + table.form-table td {
+	padding-right: var(--mwp-card-padding);
+}
+
+.maintely-mode-section-card-header + table.form-table tr:first-child th,
+.maintely-mode-section-card-header + table.form-table tr:first-child td {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-section-card-header + table.form-table tr:last-child th,
+.maintely-mode-section-card-header + table.form-table tr:last-child td {
+	padding-bottom: var(--mwp-space-6);
+}
+
+.maintely-mode-section-card-header + table.form-table input[type="text"]:focus,
+.maintely-mode-section-card-header + table.form-table input[type="url"]:focus,
+.maintely-mode-section-card-header + table.form-table textarea:focus {
+	border-color: var(--mwp-accent);
+	box-shadow: 0 0 0 1px var(--mwp-accent);
+}
+
+/* ==========================================================================
+   Maintenance Title field
+   ========================================================================== */
+
+.maintely-mode-title-field-row th label {
+	font-weight: 600;
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-title-field {
+	max-width: 460px;
+}
+
+.maintely-mode-title-input.maintely-mode-title-input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	min-height: var(--mwp-field-height);
+	padding: 8px 12px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-title-input.maintely-mode-title-input:focus {
+	border-color: var(--mwp-accent);
+	box-shadow: 0 0 0 1px var(--mwp-accent);
+	outline: none;
+}
+
+.maintely-mode-title-field .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+/* ==========================================================================
+   Maintenance Message field
+   ========================================================================== */
+
+.maintely-mode-message-field-row th label {
+	font-weight: 600;
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-message-field {
+	max-width: 460px;
+}
+
+.maintely-mode-message-input.maintely-mode-message-input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 14px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: var(--mwp-lh-relaxed);
+	box-shadow: none;
+	resize: vertical;
+	min-height: 140px;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-message-input.maintely-mode-message-input:focus {
+	border-color: var(--mwp-accent);
+	box-shadow: 0 0 0 1px var(--mwp-accent);
+	outline: none;
+}
+
+.maintely-mode-message-field .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+/* ==========================================================================
+   Maintenance Mode status card
+   ========================================================================== */
+
+.maintely-mode-maintenance-card {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-4);
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-6);
+	padding: var(--mwp-space-5) var(--mwp-card-padding);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface-sunken);
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.maintely-mode-maintenance-card.is-active {
+	background: var(--mwp-accent-soft);
+	border-color: var(--mwp-accent-border);
+}
+
+/* Explicit (rather than relying on the base rule) so both states are
+ * defined the same way and the grey reads clearly against the white
+ * page background - --mwp-surface-sunken was too close to white here. */
+.maintely-mode-maintenance-card.is-disabled {
+	background: var(--mwp-neutral-badge-bg);
+	border-color: var(--mwp-border);
+}
+
+.maintely-mode-maintenance-card-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	flex-shrink: 0;
+	border-radius: var(--mwp-radius-md);
+	background: #e2e4e7;
+}
+
+.maintely-mode-maintenance-card.is-active .maintely-mode-maintenance-card-icon {
+	background: var(--mwp-accent);
+}
+
+.maintely-mode-maintenance-card-icon .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-maintenance-card.is-active .maintely-mode-maintenance-card-icon .dashicons {
+	color: #ffffff;
+}
+
+.maintely-mode-maintenance-card-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.maintely-mode-maintenance-card-heading {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	gap: var(--mwp-space-2);
+}
+
+.maintely-mode-maintenance-card-title {
+	margin: 0;
+	font-size: var(--mwp-fs-card-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+	white-space: nowrap;
+}
+
+.maintely-mode-maintenance-card-status {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-width: 74px;
+	padding: 2px 10px;
+	border-radius: var(--mwp-radius-pill);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: var(--mwp-neutral-badge-bg);
+	color: var(--mwp-text-secondary);
+	white-space: nowrap;
+}
+
+.maintely-mode-maintenance-card-status-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--mwp-neutral-badge-dot);
+	flex-shrink: 0;
+}
+
+.maintely-mode-maintenance-card.is-active .maintely-mode-maintenance-card-status {
+	background: var(--mwp-accent-soft-strong);
+	color: var(--mwp-accent-hover);
+}
+
+.maintely-mode-maintenance-card.is-active .maintely-mode-maintenance-card-status-dot {
+	background: var(--mwp-accent);
+}
+
+.maintely-mode-maintenance-card-description {
+	margin: var(--mwp-space-1) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 80ch;
+}
+
+.maintely-mode-maintenance-card-control {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	align-self: center;
+}
+
+/* ==========================================================================
+   Toggle switch
+   ========================================================================== */
+
+.maintely-mode-toggle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.maintely-mode-toggle input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	width: 44px;
+	height: 24px;
+	margin: 0;
+	cursor: pointer;
+}
+
+.maintely-mode-toggle-track {
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+	border-radius: var(--mwp-radius-pill);
+	background: var(--mwp-neutral-badge-dot);
+	transition: background-color 0.15s ease;
+}
+
+.maintely-mode-toggle-thumb {
+	display: block;
+	width: 18px;
+	height: 18px;
+	margin: 3px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	transition: transform 0.15s ease;
+}
+
+.maintely-mode-toggle input[type="checkbox"]:checked + .maintely-mode-toggle-track {
+	background: var(--mwp-accent);
+}
+
+.maintely-mode-toggle input[type="checkbox"]:checked + .maintely-mode-toggle-track .maintely-mode-toggle-thumb {
+	transform: translateX(20px);
+}
+
+.maintely-mode-toggle input[type="checkbox"]:focus-visible + .maintely-mode-toggle-track {
+	outline: 2px solid var(--mwp-accent);
+	outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Website Name toggle field
+   ========================================================================== */
+
+.maintely-mode-site-name-field {
+	max-width: 460px;
+}
+
+.maintely-mode-site-name-row {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-2);
+}
+
+.maintely-mode-site-name-label {
+	font-weight: 600;
+	color: var(--mwp-text-primary);
+	font-size: var(--mwp-fs-label);
+}
+
+.maintely-mode-site-name-status {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 42px;
+	padding: 2px 10px;
+	border-radius: var(--mwp-radius-pill);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+
+.maintely-mode-site-name-status.is-on {
+	color: var(--mwp-accent-hover);
+	background: var(--mwp-accent-soft);
+}
+
+.maintely-mode-site-name-status.is-off {
+	color: var(--mwp-text-secondary);
+	background: var(--mwp-neutral-badge-bg);
+}
+
+.maintely-mode-site-name-field .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+@media screen and (max-width: 600px) {
+	.maintely-mode-maintenance-card {
+		flex-wrap: wrap;
+		align-items: flex-start;
+	}
+
+	.maintely-mode-maintenance-card-heading {
+		flex-wrap: wrap;
+	}
+
+	.maintely-mode-maintenance-card-title {
+		white-space: normal;
+	}
+
+	.maintely-mode-maintenance-card-body {
+		flex: 1 1 100%;
+		order: 2;
+	}
+
+	.maintely-mode-maintenance-card-control {
+		order: 3;
+		margin-left: 62px;
+		margin-top: var(--mwp-space-1);
+	}
+}
+
+/* ==========================================================================
+   Contact tab — dedicated card-based layout.
+   Scoped entirely under .maintely-mode-contact-* classes so it cannot
+   affect any other tab. Uses its own accent (#2563EB) local to this
+   tab only, kept separate from the shared --mwp-accent token used
+   elsewhere in the admin UI.
+   ========================================================================== */
+
+.maintely-mode-contact-section-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-4);
+}
+
+.maintely-mode-contact-section-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid #2563EB;
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-contact-section-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* The Settings API renders a plain <table class="form-table"> right
+ * after our section header - style it as the rest of that same card. */
+.maintely-mode-contact-section-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-7);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+.maintely-mode-contact-section-header + table.form-table th {
+	padding-left: var(--mwp-card-padding);
+}
+
+.maintely-mode-contact-section-header + table.form-table td {
+	padding-right: var(--mwp-card-padding);
+}
+
+/* Field row rhythm: consistent vertical spacing and alignment between
+ * label, field, and description across all four Contact fields. */
+.maintely-mode-contact-field-row th {
+	width: 200px;
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	font-size: var(--mwp-fs-label);
+	font-weight: 600;
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+	vertical-align: top;
+}
+
+.maintely-mode-contact-field-row td {
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	vertical-align: top;
+}
+
+.maintely-mode-contact-field-row:first-child th,
+.maintely-mode-contact-field-row:first-child td {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-contact-field-row:last-child th,
+.maintely-mode-contact-field-row:last-child td {
+	padding-bottom: var(--mwp-space-6);
+}
+
+.maintely-mode-contact-field-row + .maintely-mode-contact-field-row th,
+.maintely-mode-contact-field-row + .maintely-mode-contact-field-row td {
+	border-top: 1px solid var(--mwp-border-light);
+}
+
+.maintely-mode-contact-field {
+	max-width: 460px;
+}
+
+/* Modern input/textarea styling, local to the Contact tab. */
+.maintely-mode-contact-input.maintely-mode-contact-input,
+.maintely-mode-contact-textarea.maintely-mode-contact-textarea {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	box-shadow: none;
+	background: var(--mwp-surface);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-contact-input.maintely-mode-contact-input {
+	min-height: var(--mwp-field-height);
+	padding: 8px 12px;
+	line-height: 1.4;
+}
+
+.maintely-mode-contact-textarea.maintely-mode-contact-textarea {
+	padding: 10px 12px;
+	line-height: var(--mwp-lh-relaxed);
+	resize: vertical;
+	min-height: 84px;
+}
+
+.maintely-mode-contact-input.maintely-mode-contact-input:focus,
+.maintely-mode-contact-textarea.maintely-mode-contact-textarea:focus {
+	border-color: #2563EB;
+	box-shadow: 0 0 0 1px #2563EB;
+	outline: none;
+}
+
+.maintely-mode-contact-field .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-contact-field-row th {
+		width: auto;
+	}
+}
+
+/* ==========================================================================
+   Social Media tab — dedicated card-based layout.
+   Scoped entirely under .maintely-mode-social-* classes so it cannot
+   affect any other tab. Uses its own accent (#2563EB) local to this
+   tab only, kept separate from the shared --mwp-accent token used
+   elsewhere in the admin UI. Mirrors the Contact tab's card pattern.
+   ========================================================================== */
+
+.maintely-mode-social-section-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-4);
+}
+
+.maintely-mode-social-section-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid #2563EB;
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-social-section-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* The Settings API renders a plain <table class="form-table"> right
+ * after our section header - style it as the rest of that same card. */
+.maintely-mode-social-section-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-7);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+.maintely-mode-social-section-header + table.form-table th {
+	padding-left: var(--mwp-card-padding);
+}
+
+.maintely-mode-social-section-header + table.form-table td {
+	padding-right: var(--mwp-card-padding);
+}
+
+/* Field row rhythm: consistent vertical spacing and alignment between
+ * label, field, and description across all Social Media fields. */
+.maintely-mode-social-field-row th {
+	width: 200px;
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	font-size: var(--mwp-fs-label);
+	font-weight: 600;
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+	vertical-align: top;
+}
+
+.maintely-mode-social-field-row td {
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	vertical-align: top;
+}
+
+.maintely-mode-social-field-row:first-child th,
+.maintely-mode-social-field-row:first-child td {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-social-field-row:last-child th,
+.maintely-mode-social-field-row:last-child td {
+	padding-bottom: var(--mwp-space-6);
+}
+
+.maintely-mode-social-field-row + .maintely-mode-social-field-row th,
+.maintely-mode-social-field-row + .maintely-mode-social-field-row td {
+	border-top: 1px solid var(--mwp-border-light);
+}
+
+/* URL input, styled as a single self-contained control (no platform
+ * icon — the platform is already identified by the field's label). */
+.maintely-mode-social-input-group {
+	display: flex;
+	align-items: stretch;
+	max-width: 460px;
+}
+
+/* Modern input styling, local to the Social Media tab. */
+.maintely-mode-social-input.maintely-mode-social-input {
+	display: block;
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	min-height: var(--mwp-field-height);
+	padding: 8px 12px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: none;
+	background: var(--mwp-surface);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-social-input.maintely-mode-social-input:focus {
+	border-color: #2563EB;
+	box-shadow: 0 0 0 1px #2563EB;
+	outline: none;
+	position: relative;
+	z-index: 1;
+}
+
+.maintely-mode-social-field-row .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+/* Custom Social Links: give the repeater room to breathe and make it
+ * read as its own clearly-defined card within the Social tab. */
+.maintely-mode-social-custom-field-row th {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-social-custom-field-row td {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-social-repeater {
+	max-width: 620px;
+	padding: var(--mwp-space-4);
+	border: 1px dashed var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface-sunken);
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-rows:empty {
+	display: none;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-2);
+	margin-bottom: var(--mwp-space-2);
+	padding: var(--mwp-space-2);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	background: var(--mwp-surface);
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row:last-child {
+	margin-bottom: 0;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row input.regular-text {
+	flex: 1 1 auto;
+	min-width: 0;
+	max-width: none;
+	min-height: 34px;
+	padding: 6px 10px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-sm);
+	font-size: 13px;
+	box-shadow: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row input[type="text"].regular-text {
+	flex-basis: 34%;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row input[type="url"].regular-text {
+	flex-basis: 46%;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-row input.regular-text:focus {
+	border-color: #2563EB;
+	box-shadow: 0 0 0 1px #2563EB;
+	outline: none;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-remove {
+	flex: 0 0 auto;
+	color: var(--mwp-danger);
+	border-color: var(--mwp-danger-border);
+	background: #ffffff;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-remove:hover {
+	color: var(--mwp-danger-hover);
+	border-color: var(--mwp-danger-border-hover);
+	background: var(--mwp-danger-soft);
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-add {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	gap: 6px;
+	color: #2563EB;
+	border-color: #2563EB;
+	background: #ffffff;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-add:hover {
+	color: #ffffff;
+	background: #2563EB;
+	border-color: #2563EB;
+}
+
+.maintely-mode-social-repeater .maintely-mode-repeater-add .dashicons {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	line-height: 16px;
+	vertical-align: middle;
+}
+
+.maintely-mode-social-repeater > p:first-of-type {
+	margin: var(--mwp-space-4) 0 0;
+}
+
+.maintely-mode-social-repeater .description {
+	margin: var(--mwp-space-2) 0 0;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-social-field-row th {
+		width: auto;
+	}
+
+	.maintely-mode-social-input-group {
+		max-width: 100%;
+	}
+
+	.maintely-mode-social-repeater .maintely-mode-repeater-row {
+		flex-wrap: wrap;
+	}
+
+	.maintely-mode-social-repeater .maintely-mode-repeater-row input[type="text"].regular-text,
+	.maintely-mode-social-repeater .maintely-mode-repeater-row input[type="url"].regular-text {
+		flex-basis: 100%;
+	}
+}
+
+/* ==========================================================================
+   Access Control tab — dedicated card-based layout.
+   Scoped entirely under .maintely-mode-access-* / .maintely-mode-regenerate-*
+   classes so it cannot affect any other tab. Uses its own accent
+   (#2563EB) local to this tab only, kept separate from the shared
+   --mwp-accent token used elsewhere in the admin UI. Mirrors the
+   Contact/Social tabs' card pattern.
+   ========================================================================== */
+
+.maintely-mode-access-section-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-4);
+}
+
+.maintely-mode-access-section-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid #2563EB;
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-access-section-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* The Settings API renders a plain <table class="form-table"> right
+ * after our section header - style it as the rest of that same card. */
+.maintely-mode-access-section-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-6);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.maintely-mode-access-section-header + table.form-table {
+	display: block;
+}
+
+.maintely-mode-access-section-header + table.form-table tbody,
+.maintely-mode-access-section-header + table.form-table tr {
+	display: block;
+}
+
+.maintely-mode-access-section-header + table.form-table th {
+	display: none;
+}
+
+.maintely-mode-access-section-header + table.form-table td {
+	display: block;
+	width: auto;
+	padding: var(--mwp-card-padding);
+}
+
+.maintely-mode-access-field-row th,
+.maintely-mode-access-field-row td {
+	vertical-align: top;
+}
+
+/* Secret Access URL card - flat, borderless layout matching the
+ * reference: plain title/subtitle on the left, the Regenerate action
+ * as a plain text link on the right, and a flat light-gray pill for
+ * the URL itself with a plain (chrome-free) copy icon inside it. */
+.maintely-mode-access-url-card {
+	box-sizing: border-box;
+	padding: var(--mwp-space-5) 0 0;
+}
+
+.maintely-mode-access-url-card-heading {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: var(--mwp-space-3);
+	margin-bottom: var(--mwp-space-4);
+}
+
+.maintely-mode-access-url-card-heading-text {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.maintely-mode-access-url-label {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-access-url-sublabel {
+	margin: var(--mwp-space-1) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-access-url-row {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--mwp-space-2);
+	padding: 0 var(--mwp-space-4);
+	min-height: 52px;
+	border: none;
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface-muted);
+}
+
+/* The read-only URL input itself - existing .maintely-mode-secret-url
+ * base rule (max-width/background/cursor) is kept as-is; this only
+ * adds the modern card-local sizing/typography on top of it. */
+.maintely-mode-access-url-row .maintely-mode-secret-url {
+	flex: 1 1 320px;
+	min-width: 0;
+	min-height: 40px;
+	padding: 8px 0;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	font-size: 14px;
+	font-family: Consolas, Monaco, "Courier New", monospace;
+	color: var(--mwp-text-secondary);
+	box-shadow: none;
+}
+
+.maintely-mode-access-url-row .maintely-mode-secret-url:focus {
+	outline: none;
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-access-copy-button.maintely-mode-access-copy-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: none;
+	border-radius: var(--mwp-radius-sm);
+	background: transparent;
+	color: #2563EB;
+	box-shadow: none;
+	text-shadow: none;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.maintely-mode-access-copy-button.maintely-mode-access-copy-button:hover,
+.maintely-mode-access-copy-button.maintely-mode-access-copy-button:focus {
+	color: #1d4fc4;
+	background: rgba(37, 99, 235, 0.08);
+}
+
+.maintely-mode-access-copy-button .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+	line-height: 18px;
+}
+
+/* The "Copied!" badge is inserted by JS as the next sibling of the
+ * .maintely-mode-secret-url input, which by default makes it a flex
+ * item in this row (shifting the copy button and reserving space
+ * even while invisible). Taken out of flow and absolutely
+ * positioned over the row instead, so it overlays the UI without
+ * ever affecting layout - appearing and disappearing leaves no gap
+ * and never nudges the copy button. */
+.maintely-mode-access-url-row .maintely-mode-copied-badge {
+	position: absolute;
+	top: 50%;
+	right: var(--mwp-space-4);
+	flex: none;
+	margin-left: 0;
+	transform: translateY(-50%) translateY(-2px);
+	pointer-events: none;
+	z-index: 1;
+}
+
+.maintely-mode-access-url-row .maintely-mode-copied-badge.is-visible {
+	transform: translateY(-50%);
+}
+
+.maintely-mode-access-url-card .description {
+	margin: var(--mwp-space-3) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* Security helper notice below the URL card. */
+.maintely-mode-access-notice {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--mwp-space-3);
+	margin-top: var(--mwp-space-4);
+	padding: var(--mwp-space-3) var(--mwp-space-4);
+	border: 1px solid var(--mwp-accent-border, rgba(37, 99, 235, 0.4));
+	border-radius: var(--mwp-radius-md);
+	background: rgba(37, 99, 235, 0.06);
+}
+
+.maintely-mode-access-notice-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	margin-top: 1px;
+	color: #2563EB;
+}
+
+.maintely-mode-access-notice-icon .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+
+.maintely-mode-access-notice p {
+	margin: 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+}
+
+/* Regenerate action, relocated by admin.js into the actions slot on
+ * the right of the URL card's heading row (see
+ * initRegenerateFormPlacement()) so it reads as part of the same box
+ * as the URL field, instead of a separate panel underneath it.
+ * Styled as a plain text link (no button chrome) to match the
+ * reference design. */
+.maintely-mode-secret-url-card-actions-slot {
+	display: flex;
+	align-items: flex-start;
+	flex: 0 0 auto;
+	padding-top: 2px;
+}
+
+.maintely-mode-secret-url-card-actions-slot:empty {
+	display: none;
+}
+
+.maintely-mode-regenerate-form {
+	flex: 0 0 auto;
+}
+
+.maintely-mode-regenerate-button.maintely-mode-regenerate-button {
+	display: inline-flex;
+	align-items: center;
+	height: auto;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	color: #2563EB;
+	background: transparent;
+	font-size: 14px;
+	font-weight: 700;
+	white-space: nowrap;
+	line-height: var(--mwp-lh-tight);
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.maintely-mode-regenerate-button.maintely-mode-regenerate-button:hover,
+.maintely-mode-regenerate-button.maintely-mode-regenerate-button:focus {
+	color: #1d4fc4;
+	background: transparent;
+	text-decoration: underline;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-access-url-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.maintely-mode-access-copy-button.maintely-mode-access-copy-button {
+		align-self: flex-end;
+	}
+
+	.maintely-mode-access-url-row .maintely-mode-copied-badge {
+		top: auto;
+		bottom: var(--mwp-space-2);
+		right: var(--mwp-space-4);
+		transform: translateY(2px);
+	}
+
+	.maintely-mode-access-url-row .maintely-mode-copied-badge.is-visible {
+		transform: translateY(0);
+	}
+
+	.maintely-mode-secret-url-card-actions-slot {
+		flex: 1 1 100%;
+		justify-content: flex-start;
+		padding-top: 0;
+	}
+
+	.maintely-mode-regenerate-form {
+		width: auto;
+	}
+}
+
+/* ==========================================================================
+   Design tab — dedicated card-based layout.
+   Scoped entirely under .maintely-mode-design-* classes (plus the
+   redesigned .maintely-mode-theme-* rules above, and reuse of the shared
+   .maintely-mode-toggle switch) so it cannot affect any other tab. Uses
+   its own accent (#2563EB) local to this tab only, kept separate from
+   the shared --mwp-accent token used elsewhere in the admin UI.
+   Mirrors the Contact/Social/Access tabs' card pattern.
+   ========================================================================== */
+
+.maintely-mode-design-section-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-4);
+}
+
+.maintely-mode-design-section-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid #2563EB;
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-design-section-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* The Settings API renders a plain <table class="form-table"> right
+ * after our section header - style it as the rest of that same card,
+ * so both Design fields read as one grouped "Appearance" card. */
+.maintely-mode-design-section-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-7);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+.maintely-mode-design-section-header + table.form-table th {
+	padding-left: var(--mwp-card-padding);
+}
+
+.maintely-mode-design-section-header + table.form-table td {
+	padding-right: var(--mwp-card-padding);
+}
+
+/* Field row rhythm: consistent vertical spacing and alignment between
+ * label, control, and description across both Design fields. */
+.maintely-mode-design-field-row th {
+	width: 200px;
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	font-size: var(--mwp-fs-label);
+	font-weight: 600;
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+	vertical-align: top;
+}
+
+.maintely-mode-design-field-row td {
+	padding-top: var(--mwp-space-5);
+	padding-bottom: var(--mwp-space-5);
+	vertical-align: top;
+}
+
+.maintely-mode-design-field-row:first-child th,
+.maintely-mode-design-field-row:first-child td {
+	padding-top: var(--mwp-space-6);
+}
+
+.maintely-mode-design-field-row:last-child th,
+.maintely-mode-design-field-row:last-child td {
+	padding-bottom: var(--mwp-space-6);
+}
+
+.maintely-mode-design-field-row + .maintely-mode-design-field-row th,
+.maintely-mode-design-field-row + .maintely-mode-design-field-row td {
+	border-top: 1px solid var(--mwp-border-light);
+}
+
+.maintely-mode-design-field-row .description {
+	margin: var(--mwp-space-2) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+/* Particle Background toggle row - reuses the shared .maintely-mode-toggle
+ * switch (same markup pattern as Maintenance Mode / Website Name) so
+ * it matches the rest of the plugin, paired here with its own label. */
+.maintely-mode-design-toggle-row {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-3);
+}
+
+.maintely-mode-design-toggle-label {
+	font-size: var(--mwp-fs-body);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+	cursor: pointer;
+}
+
+.maintely-mode-design-field-row .maintely-mode-toggle input[type="checkbox"]:checked + .maintely-mode-toggle-track {
+	background: #2563EB;
+}
+
+.maintely-mode-design-field-row .maintely-mode-toggle input[type="checkbox"]:focus-visible + .maintely-mode-toggle-track {
+	outline-color: #2563EB;
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-design-field-row th {
+		width: auto;
+	}
+
+	.maintely-mode-theme-option {
+		width: 100%;
+	}
+}
+
+/* ==========================================================================
+   Schedule tab — dedicated card-based layout.
+   Scoped entirely under .maintely-mode-schedule-* classes (plus reuse of
+   the shared .maintely-mode-toggle switch) so it cannot affect any other
+   tab. Uses its own accent (#2563EB) local to this tab only, kept
+   separate from the shared --mwp-accent token used elsewhere in the
+   admin UI. Mirrors the Contact/Social/Design tabs' card pattern.
+   ========================================================================== */
+
+/* Declared on .maintely-mode-tab-content (the shared ancestor of both the
+ * section header AND the sibling table.form-table that the Settings API
+ * prints the toggle card/status pill into) so these tokens are actually
+ * inherited everywhere they're used, not just inside the header. */
+.maintely-mode-tab-content {
+	--mwp-schedule-accent: #2563EB;
+	--mwp-schedule-accent-hover: #1d4fc4;
+	--mwp-schedule-accent-soft: rgba(37, 99, 235, 0.1);
+	--mwp-schedule-accent-soft-strong: rgba(37, 99, 235, 0.16);
+	--mwp-schedule-accent-border: rgba(37, 99, 235, 0.4);
+}
+
+.maintely-mode-schedule-section-header {
+	box-sizing: border-box;
+	background: var(--mwp-surface);
+	border: 1px solid var(--mwp-border);
+	border-bottom: none;
+	border-radius: var(--mwp-radius-lg) var(--mwp-radius-lg) 0 0;
+	padding: var(--mwp-card-padding) var(--mwp-card-padding) var(--mwp-space-4);
+}
+
+.maintely-mode-schedule-section-title {
+	margin: 0 0 var(--mwp-space-1);
+	padding-left: var(--mwp-space-3);
+	border-left: 3px solid #2563EB;
+	font-size: var(--mwp-fs-section-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-schedule-section-description {
+	margin: 0;
+	padding-left: var(--mwp-space-3);
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+/* The Settings API renders a plain <table class="form-table"> right
+ * after our section header - style it as the rest of that same card,
+ * so the toggle card and the date fields both read as one grouped
+ * "Schedule" card. */
+.maintely-mode-schedule-section-header + table.form-table {
+	box-sizing: border-box;
+	margin: 0 0 var(--mwp-space-7);
+	border: 1px solid var(--mwp-border);
+	border-top: none;
+	border-radius: 0 0 var(--mwp-radius-lg) var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+/* Both Schedule field rows are rendered as full-width custom cards
+ * (no Settings-API label column, no per-field <th>), so give every
+ * cell the same generous horizontal padding as the card and let each
+ * row breathe vertically. */
+.maintely-mode-tab-content .maintely-mode-schedule-field-row th {
+	display: none;
+}
+
+/* Specificity note: these are intentionally scoped under
+ * .maintely-mode-tab-content (rather than just `.maintely-mode-schedule-field-row td`)
+ * so they reliably win over the generic
+ * ".maintely-mode-tab-content .form-table td { padding: var(--mwp-space-5) 0; }"
+ * rule above, which has equal-or-higher specificity and was zeroing out
+ * the left/right padding here - the actual cause of the toggle card and
+ * date/time card visually touching the card's outer edges. */
+.maintely-mode-tab-content .maintely-mode-schedule-field-row td {
+	display: block;
+	width: 100%;
+	padding: var(--mwp-space-6) var(--mwp-card-padding);
+}
+
+.maintely-mode-tab-content .maintely-mode-schedule-field-row:first-child td {
+	padding-top: var(--mwp-card-padding);
+}
+
+.maintely-mode-tab-content .maintely-mode-schedule-field-row:last-child td {
+	padding-bottom: var(--mwp-card-padding);
+}
+
+.maintely-mode-tab-content .maintely-mode-schedule-window-row td {
+	padding-top: 0;
+}
+
+/* ---- Automatic Scheduling toggle card ---- */
+
+.maintely-mode-schedule-toggle-card {
+	display: flex;
+	align-items: center;
+	gap: var(--mwp-space-4);
+	width: 100%;
+	box-sizing: border-box;
+	padding: var(--mwp-space-5);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface-sunken);
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.maintely-mode-schedule-toggle-card.is-active {
+	background: var(--mwp-schedule-accent-soft);
+	border-color: var(--mwp-schedule-accent-border);
+}
+
+.maintely-mode-schedule-toggle-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	flex-shrink: 0;
+	border-radius: var(--mwp-radius-md);
+	background: #e2e4e7;
+	transition: background-color 0.15s ease;
+}
+
+.maintely-mode-schedule-toggle-card.is-active .maintely-mode-schedule-toggle-icon {
+	background: var(--mwp-schedule-accent);
+}
+
+.maintely-mode-schedule-toggle-icon .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	color: var(--mwp-text-secondary);
+}
+
+.maintely-mode-schedule-toggle-card.is-active .maintely-mode-schedule-toggle-icon .dashicons {
+	color: #ffffff;
+}
+
+.maintely-mode-schedule-toggle-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.maintely-mode-schedule-toggle-heading {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--mwp-space-2);
+}
+
+.maintely-mode-schedule-toggle-title {
+	margin: 0;
+	font-size: var(--mwp-fs-card-title);
+	font-weight: 600;
+	line-height: var(--mwp-lh-tight);
+	color: var(--mwp-text-primary);
+	cursor: pointer;
+}
+
+.maintely-mode-schedule-toggle-status {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 2px 10px;
+	border-radius: var(--mwp-radius-pill);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: var(--mwp-neutral-badge-bg);
+	color: var(--mwp-text-secondary);
+	white-space: nowrap;
+}
+
+.maintely-mode-schedule-toggle-status-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--mwp-neutral-badge-dot);
+	flex-shrink: 0;
+}
+
+.maintely-mode-schedule-toggle-card.is-active .maintely-mode-schedule-toggle-status {
+	background: var(--mwp-schedule-accent-soft-strong);
+	color: var(--mwp-schedule-accent-hover);
+}
+
+.maintely-mode-schedule-toggle-card.is-active .maintely-mode-schedule-toggle-status-dot {
+	background: var(--mwp-schedule-accent);
+}
+
+.maintely-mode-schedule-toggle-description {
+	margin: var(--mwp-space-1) 0 0;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+	max-width: 60ch;
+}
+
+.maintely-mode-schedule-toggle-control {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	align-self: center;
+}
+
+.maintely-mode-schedule-toggle-card .maintely-mode-toggle input[type="checkbox"]:checked + .maintely-mode-toggle-track {
+	background: #2563EB;
+}
+
+.maintely-mode-schedule-toggle-card .maintely-mode-toggle input[type="checkbox"]:focus-visible + .maintely-mode-toggle-track {
+	outline-color: #2563EB;
+}
+
+.maintely-mode-schedule-status-hint {
+	margin: var(--mwp-space-3) 0 0 !important;
+	padding-left: 2px;
+}
+
+/* ---- Start / End date fields card ---- */
+
+.maintely-mode-schedule-fields-card {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--mwp-space-6);
+	width: 100%;
+	box-sizing: border-box;
+	margin-top: var(--mwp-space-5);
+	padding: var(--mwp-card-padding);
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-lg);
+	background: var(--mwp-surface);
+	transition: opacity 0.15s ease;
+}
+
+/* Dimmed + visually deactivated while Automatic Scheduling is off.
+ * pointer-events: none blocks all interaction with the inputs; the
+ * fields keep their name/value so a save made in this state cannot
+ * wipe out previously stored dates (see render_field_schedule_window()
+ * in class-settings.php). */
+.maintely-mode-schedule-fields-card.is-disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.maintely-mode-schedule-field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--mwp-space-2);
+	min-width: 0;
+}
+
+.maintely-mode-schedule-field-label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--mwp-fs-label);
+	font-weight: 600;
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-primary);
+}
+
+.maintely-mode-schedule-field-label .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	color: #2563EB;
+}
+
+.maintely-mode-schedule-fields-card.is-disabled .maintely-mode-schedule-field-label .dashicons {
+	color: var(--mwp-text-tertiary);
+}
+
+.maintely-mode-schedule-input.maintely-mode-schedule-input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	min-height: var(--mwp-field-height);
+	padding: 8px 12px;
+	border: 1px solid var(--mwp-border);
+	border-radius: var(--mwp-radius-md);
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: none;
+	background: var(--mwp-surface);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.maintely-mode-schedule-input.maintely-mode-schedule-input:focus {
+	border-color: #2563EB;
+	box-shadow: 0 0 0 1px #2563EB;
+	outline: none;
+}
+
+.maintely-mode-schedule-fields-card.is-disabled .maintely-mode-schedule-input.maintely-mode-schedule-input {
+	background: var(--mwp-surface-muted);
+	cursor: not-allowed;
+}
+
+.maintely-mode-schedule-field .description {
+	margin: 0 !important;
+	font-size: var(--mwp-fs-description);
+	line-height: var(--mwp-lh-normal);
+	color: var(--mwp-text-secondary);
+}
+
+@media screen and (max-width: 782px) {
+	.maintely-mode-schedule-fields-card {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.maintely-mode-schedule-toggle-card {
+		flex-wrap: wrap;
+		align-items: flex-start;
+	}
+
+	.maintely-mode-schedule-toggle-heading {
+		flex-wrap: wrap;
+	}
+
+	.maintely-mode-schedule-toggle-body {
+		flex: 1 1 100%;
+		order: 2;
+	}
+
+	.maintely-mode-schedule-toggle-control {
+		order: 3;
+		margin-left: 62px;
+		margin-top: var(--mwp-space-1);
+	}
+}

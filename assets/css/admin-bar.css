@@ -1,0 +1,31 @@
+/**
+ * Maintely Mode - Admin Toolbar Pill
+ *
+ * Small, scoped styles for the toolbar pill link. Loaded on both the
+ * front end and wp-admin, but only when the button itself is rendered
+ * (see Maintely_Mode_Admin_Bar::enqueue_assets()).
+ */
+
+.maintely-mode-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 3px 12px;
+	border-radius: 999px;
+	border: 1px solid rgba(240, 246, 252, 0.3);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.6;
+	color: inherit;
+	background: transparent;
+	transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.maintely-mode-pill.is-active {
+	background: #2563EB;
+	border-color: #2563EB;
+	color: #ffffff;
+}
+
+#wpadminbar .maintely-mode-toolbar-link:hover .maintely-mode-pill {
+	opacity: 0.9;
+}

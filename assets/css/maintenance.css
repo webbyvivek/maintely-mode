@@ -1,0 +1,284 @@
+/**
+ * Maintely Mode - Frontend Maintenance Page
+ *
+ * Base structural + visual styles: centered card, responsive spacing,
+ * typography, contact pills, and social links. No external fonts or
+ * libraries - system font stack only, kept deliberately light for fast
+ * loading. Light and dark are both implemented as CSS custom-property
+ * sets below; Maintely_Mode_Frontend adds "maintely-mode-theme-light" or
+ * "maintely-mode-theme-dark" to <html> based on the saved setting.
+ */
+
+:root,
+.maintely-mode-theme-light {
+	color-scheme: light;
+	--mwp-bg: #f3f4f8;
+	--mwp-card-bg: #ffffff;
+	--mwp-text: #1f2333;
+	--mwp-text-muted: #6b7280;
+	--mwp-accent: #4f46e5;
+	--mwp-accent-soft: rgba(79, 70, 229, 0.08);
+	--mwp-accent-soft-strong: rgba(79, 70, 229, 0.16);
+	--mwp-whatsapp: #128c4a;
+	--mwp-whatsapp-border: #25d366;
+	--mwp-whatsapp-soft: rgba(37, 211, 102, 0.12);
+	--mwp-border: rgba(15, 23, 42, 0.08);
+	--mwp-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+	--mwp-radius: 20px;
+	--mwp-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.maintely-mode-theme-dark {
+	color-scheme: dark;
+	--mwp-bg: #0f1115;
+	--mwp-card-bg: #1a1d24;
+	--mwp-text: #f3f4f6;
+	--mwp-text-muted: #9ca3af;
+	--mwp-accent: #818cf8;
+	--mwp-accent-soft: rgba(129, 140, 248, 0.14);
+	--mwp-accent-soft-strong: rgba(129, 140, 248, 0.24);
+	--mwp-whatsapp: #4ade80;
+	--mwp-whatsapp-border: #34d399;
+	--mwp-whatsapp-soft: rgba(52, 211, 153, 0.16);
+	--mwp-border: rgba(255, 255, 255, 0.08);
+	--mwp-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body.maintely-mode-body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: var(--mwp-bg);
+	font-family: var(--mwp-font);
+	color: var(--mwp-text);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+.maintely-mode-card {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 560px;
+	background: var(--mwp-card-bg);
+	border-radius: var(--mwp-radius);
+	box-shadow: var(--mwp-shadow);
+	padding: 48px 40px;
+	text-align: center;
+	animation: maintely-mode-fade-in 0.6s ease both;
+}
+
+@keyframes maintely-mode-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.maintely-mode-logo img {
+	max-width: 160px;
+	max-height: 80px;
+	width: auto;
+	height: auto;
+	margin: 0 auto 20px;
+	display: block;
+}
+
+.maintely-mode-site-name {
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--mwp-text-muted);
+	margin: 0 0 12px;
+}
+
+.maintely-mode-title {
+	font-size: clamp(24px, 4vw, 32px);
+	font-weight: 700;
+	line-height: 1.25;
+	margin: 0 0 16px;
+}
+
+.maintely-mode-message {
+	font-size: 16px;
+	line-height: 1.6;
+	color: var(--mwp-text-muted);
+	margin: 0 0 32px;
+}
+
+.maintely-mode-contact-wrap {
+	margin-bottom: 20px;
+}
+
+.maintely-mode-address {
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--mwp-text-muted);
+	margin: 0 0 16px;
+}
+
+.maintely-mode-contact {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+	margin-bottom: 0;
+}
+
+.maintely-mode-contact-link {
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 16px;
+	border-radius: 999px;
+	border: 1px solid var(--mwp-border);
+	color: var(--mwp-text);
+	text-decoration: none;
+	font-size: 14px;
+	transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.maintely-mode-contact-link:hover {
+	background: var(--mwp-accent-soft);
+	border-color: var(--mwp-accent);
+}
+
+.maintely-mode-whatsapp {
+	border-color: var(--mwp-whatsapp-border);
+	color: var(--mwp-whatsapp);
+}
+
+.maintely-mode-whatsapp:hover {
+	background: var(--mwp-whatsapp-soft);
+}
+
+.maintely-mode-social {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+
+.maintely-mode-social-link {
+	font-size: 13px;
+	padding: 8px 14px;
+	border-radius: 999px;
+	background: var(--mwp-accent-soft);
+	color: var(--mwp-accent);
+	text-decoration: none;
+	font-weight: 600;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.maintely-mode-social-link:hover {
+	background: var(--mwp-accent-soft-strong);
+	transform: translateY(-1px);
+}
+
+/* Canvas only - the particle drawing script itself is added in Phase 14. */
+.maintely-mode-particles {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   "Powered by" badge - sticky brand pill
+   Fixed positioning takes it fully out of the document flow, so it can
+   never affect the size or centering of .maintely-mode-card or any other
+   content - it simply floats above the page. Desktop: pinned to the
+   bottom-right corner. Mobile/narrow viewports: re-anchored to a
+   horizontally centered position, still near the bottom. White pill
+   background is intentional and independent of the light/dark theme
+   variables, so the badge reads the same either way.
+   ========================================================================== */
+
+.maintely-mode-powered-by {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	left: auto;
+	top: auto;
+	z-index: 10;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	max-width: calc(100vw - 32px);
+	padding: 10px 16px;
+	background: #ffffff;
+	border-radius: 999px;
+	box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+	line-height: 1;
+}
+
+.maintely-mode-powered-by-label {
+	font-family: var(--mwp-font);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	color: #6b7280;
+	white-space: nowrap;
+}
+
+.maintely-mode-powered-by-logo {
+	display: block;
+	height: 18px;
+	width: auto;
+	max-width: 130px;
+	object-fit: contain;
+}
+
+/* Re-anchor to a centered pill once the viewport is narrow enough that
+ * a bottom-right badge would start to crowd or overlap the maintenance
+ * card (which stays 560px wide down to ~600px viewports before it
+ * begins to shrink). */
+@media (max-width: 900px) {
+	.maintely-mode-powered-by {
+		right: auto;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+@media (max-width: 480px) {
+	.maintely-mode-card {
+		padding: 36px 24px;
+		border-radius: 16px;
+	}
+
+	.maintely-mode-powered-by {
+		padding: 9px 14px;
+		gap: 8px;
+	}
+
+	.maintely-mode-powered-by-label {
+		font-size: 11px;
+	}
+
+	.maintely-mode-powered-by-logo {
+		height: 16px;
+		max-width: 110px;
+	}
+}
