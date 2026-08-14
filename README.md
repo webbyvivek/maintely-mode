@@ -2,6 +2,13 @@
 
 A lightweight WordPress maintenance mode plugin with scheduling, access control, branding, social links, and a clean modern admin interface.
 
+# Maintely Mode
+
+[![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-blue)](https://wordpress.org/)
+[![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
+[![License](https://img.shields.io/badge/license-GPLv2-green)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-orange)](https://github.com/webbyvivek/Maintely-Mode)
+
 ## Features
 
 * Enable or disable Maintenance Mode
